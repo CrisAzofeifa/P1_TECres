@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {AdminPeticionesService} from '../admin-peticiones.service';
 
 @Component({
   selector: 'app-inmueble',
@@ -8,29 +9,52 @@ import { Component, OnInit } from '@angular/core';
 export class InmuebleComponent implements OnInit {
   editField: string;
   campo: string;
+  inmuebles: Array<any> = []; // lista que se obtiene del API... y se puede iterar...
+
   public valorBusqueda:string;
-  constructor() { }
+  constructor(private service: AdminPeticionesService) { }
 
   ngOnInit() {
-  }
-  inmuebles: Array<any> = [
+    this.service.getInmuebles().subscribe(p => this.inmuebles = p);
+    console.log(this.inmuebles);
 
-    {Tipo: 'Lote', cedulaAdmin:123},
-    {Tipo: "Casa", cedulaAdmin:123},
-    {Tipo: "Apartamento", cedulaAdmin:123},
-   
-  ]
 
-  inmuebleNuevo:Array<any>= [{Tipo:'Default', cedulaAdmin: 0}]
-
-  eliminar(Tipo1:any){
     
+
+  }
+
+
+  inmuebleNuevo:Array<any>= [{Tipo:'Default',definido_por: 1}];
+
+  modificar(tipo1:string, definido_por1:number){
+    var p = {Tipo:tipo1,definido_por: definido_por1.toString()};
+    this.service.putInmueble(tipo1,p).subscribe();
+  }
+
+  eliminar(Tipo1:string){
+    if (Tipo1 == "Lote" || Tipo1 == 'Casa' || Tipo1 == 'Apartamento'){
+      alert('No se puede eliminar este tipo de inmueble pues es DEFAULT.');
+
+    }else {
+
+      this.service.deleteInmueble(Tipo1).subscribe();
+  
+   
+    
+ 
     for (var indice = 0; indice < this.inmuebles.length; indice++){
       if(this.inmuebles[indice].Tipo == Tipo1){
         this.inmuebles.splice(indice, 1);
       }
     }
-    
+
+   }
+  }
+
+  agregar1(tipo1:any){
+    this.service.postInmuebles(this.inmuebleNuevo[0]).subscribe();
+    this.inmuebleNuevo = [{Tipo:'Default',definido_por: 1}]
+    alert('Se pudo agregar con éxito el nuevo inmueble.');
   }
 
   cambiarValor(event:any){
@@ -41,14 +65,16 @@ export class InmuebleComponent implements OnInit {
 
     const editField = event.target.textContent;
     console.log(editField);
-
+    
     for (var indice = 0; indice < this.inmuebles.length; indice++){
       if(this.inmuebles[indice].Tipo == Tipo1){
         this.inmuebles[indice][propiedad] = editField;
         
       }
+      
       this.editField=null;
     }
+    
       
   }
 
@@ -68,8 +94,9 @@ export class InmuebleComponent implements OnInit {
 
     this.imprimirLista();
     this.inmuebles.push(this.inmuebleNuevo[0]);
-    this.inmuebleNuevo = [{Tipo:'Default', cedulaAdmin: 0}];
-    this.editField = null;
+    
+    
+    
     
 
   }
