@@ -2,7 +2,7 @@
 
 <div class="container ml-4" >
         <form class="form-inline my-2 my-lg-0">
-<<<<<<< HEAD
+
                 <input id = "busqueda"
                        class="form-control mr-sm-2 mb-1" 
                        type="search" 
@@ -12,10 +12,7 @@
                 <button type = "button"
                         class="btn btn-outline-secondary mb-1"  
                         (click) = "buscar('busqueda','i')">Buscar</button>
-=======
-                <input id = "busqueda" class="form-control mr-sm-2" type="search" placeholder="Inmueble por Tipo" aria-label="Search">
-                <button type = "button" class="btn btn-outline-secondary my-2 my-sm-0"  (click) = "buscar('busqueda','i')">Buscar</button>
->>>>>>> fb68eb80e1c9a9d4a19255c2d8db446beef321f3
+
         </form>
         <button type="button"
                 class="btn mb-1 border border-secondary" 
@@ -26,8 +23,8 @@
               <tr>
                 
                 <th scope="col">Tipo</th>
-                <th scope="col">Asignado Por</th>
-                <th scope="col">Quitar Tipo de Inmueble</th>
+                <th scope="col">Definido Por</th>
+                <th scope="col">Quitar/Agregar/Modificar Tipo de Inmueble</th>
               </tr>
             </thead>
             <tbody>
@@ -36,15 +33,15 @@
               <tr *ngFor = "let inmueble of inmuebles;index as i" [attr.id] = "i"  [ngClass] = "{'highlight' : inmueble.Tipo == buscar('busqueda','i')}" >
                 
                 <td  class="pt-3-half" contenteditable="true" (blur) = "actualizarLista(inmueble.Tipo , 'Tipo', $event)"  >{{inmueble.Tipo}}</td>
-                <td class="pt-3-half" contenteditable="true" (blur) = "actualizarLista(inmueble.cedulaAdmin , 'cedulaAdmin', $event)">{{inmueble.cedulaAdmin}}</td>
+                <td class="pt-3-half" contenteditable="true" (blur) = "actualizarLista(inmueble.definido_por , 'definido_por', $event)">{{inmueble.definido_por}}</td>
                 
                 
                   <td>
                     <span class="table-remove">
                       
                         <button type="button" style="color:chocolate" class="btn btn-rounded btn-sm my-0 " (click) = "eliminar(inmueble.Tipo)">ELIMINAR</button>
-                        
-                      
+                        <button type="button" style="color:chocolate" class="btn btn-rounded btn-sm my-0 " (click) = "agregar1(inmueble.Tipo)">AGREGAR</button>
+                        <button type="button" style="color:chocolate" class="btn btn-rounded btn-sm my-0 " (click) = "modificar(inmueble.Tipo,inmueble.definido_por)">MODIFICAR</button>
                     </span>
                   </td>
               </tr>
@@ -52,5 +49,4 @@
             </tbody>
           </table>
     </div>
-    
     
