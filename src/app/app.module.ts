@@ -28,6 +28,9 @@ import { EstadisticaComponent } from './estadistica/estadistica.component';
 import { FacturacionComponent } from './facturacion/facturacion.component';
 import { ReportesComponent } from './reportes/reportes.component';
 
+import { PerfilAnuncioComponent } from './perfil-anuncio/perfil-anuncio.component';
+
+
 const routes: Routes = [
 
   {path: 'admin', component: AdministradorComponent},
@@ -47,6 +50,7 @@ const routes: Routes = [
   {path: 'Estadística', component:EstadisticaComponent},
   {path: 'Facturación', component:FacturacionComponent},
   {path: 'Reportes', component:ReportesComponent},
+  {path: 'Perfil/Anuncio',component:PerfilAnuncioComponent},
   {path:'',component: InicioComponent, pathMatch: 'full'},
   {path: '**', redirectTo: '/', pathMatch: 'full'}
 
@@ -72,7 +76,7 @@ const routes: Routes = [
     EstadisticaComponent,
     FacturacionComponent,
     ReportesComponent,
-    
+    PerfilAnuncioComponent,
 
   ],
   imports: [
