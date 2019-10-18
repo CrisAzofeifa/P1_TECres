@@ -24,16 +24,16 @@
             <th scope="col">Identificador</th>
             <th scope="col">Nombre</th>
             
-            <th scope="col">Quitar Ocupación</th>
+            <th scope="col">Quitar/Agregar Ocupación</th>
           </tr>
         </thead>
         <tbody>
             
          
-          <tr *ngFor = "let ocupacion of ocupaciones;index as i" [attr.id] = "i"  [ngClass] = "{'highlight' : ocupacion.Nombre == buscar('busqueda','i')}">
+          <tr *ngFor = "let ocupacion of Ocupaciones;index as i" [attr.id] = "i"  [ngClass] = "{'highlight' : ocupacion.nombre == buscar('busqueda','i')}">
             
-            <td class="pt-3-half" contenteditable="true" (blur) = "actualizarLista(ocupacion.Nombre , 'FechaIngreso', $event)">{{ocupacion.Identificador}}</td>
-            <td class="pt-3-half" contenteditable="true" (blur) = "actualizarLista(ocupacion.Nombre , 'Nombre', $event)">{{ocupacion.Nombre}}</td>
+            <td class="pt-3-half" >{{ocupacion.identificador}}</td>
+            <td class="pt-3-half" contenteditable="true" (blur) = "actualizarLista(ocupacion.nombre , 'nombre', $event)">{{ocupacion.nombre}}</td>
             
             
               <td>
@@ -42,9 +42,9 @@
                     <button type="button" 
                             style="color:chocolate"
                             class="btn btn-rounded btn-sm my-0 " 
-                            (click) = "eliminar(ocupacion.Nombre)">ELIMINAR</button>
+                            (click) = "eliminar(ocupacion.identificador)">ELIMINAR</button>
                     
-                  
+                    <button type="button" style="color:chocolate" class="btn btn-rounded btn-sm my-0 " (click) = "agregar1(ocupacion.nombre)">AGREGAR</button>
                 </span>
               </td>
           </tr>
