@@ -2,7 +2,7 @@
 
 <div class="container ml-4">
     <form class="form-inline my-2 my-lg-0">
-<<<<<<< HEAD
+
         <input id = "busqueda"
                class="form-control mr-sm-2 mb-1"
                type="search" 
@@ -12,10 +12,7 @@
         <button type = "button" 
                 class="btn btn-outline-secondary mb-1" 
                 (click) = "buscar('busqueda','i')">Buscar</button>
-=======
-        <input id = "busqueda" class="form-control mr-sm-2" type="search" placeholder="Anuncio por tipo" aria-label="Search">
-        <button type = "button" class="btn btn-outline-secondary my-2 my-sm-0"  (click) = "buscar('busqueda','i')">Buscar</button>
->>>>>>> fb68eb80e1c9a9d4a19255c2d8db446beef321f3
+
     </form>
     <button type="button"
             style="color: chocolate;"
@@ -28,18 +25,20 @@
             <th scope="col">Tipo de Anuncio</th>
             <th scope="col">Descripción</th>
             <th scope="col">Costo Diario</th>
+            <th scope="col">Duración del anuncio</th>
             
-            <th scope="col">Quitar Anuncio</th>
+            <th scope="col">Quitar/Agregar/Modificar Anuncio</th>
           </tr>
         </thead>
         <tbody>
             
          
-          <tr *ngFor = "let anuncio of anuncios;index as i" [attr.id] = "i"  [ngClass] = "{'highlight' : anuncio.Tipo == buscar('busqueda','i')}">
+          <tr *ngFor = "let anuncio of tipo_anuncios;index as i" [attr.id] = "i"  [ngClass] = "{'highlight' : anuncio.nombre == buscar('busqueda','i')}">
             
-            <td class="pt-3-half" contenteditable="true" (blur) = "actualizarLista(anuncio.Tipo , 'Tipo', $event)">{{anuncio.Tipo}}</td>
-            <td class="pt-3-half" contenteditable="true" (blur) = "actualizarLista(anuncio.Descripcion , 'Nombre', $event)">{{anuncio.Descripcion}}</td>
-            <td class="pt-3-half" contenteditable="true" (blur) = "actualizarLista(anuncio.CostoDiario , 'Apellido1', $event)">{{anuncio.CostoDiario}}</td>
+            <td class="pt-3-half" contenteditable="true" (blur) = "actualizarLista(anuncio.nombre , 'nombre', $event)">{{anuncio.nombre}}</td>
+            <td class="pt-3-half" contenteditable="true" (blur) = "actualizarLista(anuncio.descripcion , 'descripcion', $event)">{{anuncio.descripcion}}</td>
+            <td class="pt-3-half" contenteditable="true" (blur) = "actualizarLista(anuncio.costo_diario , 'costo_diario', $event)">{{anuncio.costo_diario}}</td>
+            <td class="pt-3-half" contenteditable="true" (blur) = "actualizarLista(anuncio.Duracion , 'Duracion', $event)">{{anuncio.Duracion}}</td>
             
             
               <td>
@@ -48,9 +47,9 @@
                     <button type="button"
                              style="color:chocolate"
                              class="btn  btn-rounded btn-sm my-0 "
-                             (click) = "eliminar(anuncio.Tipo)">ELIMINAR</button>
+                             (click) = "eliminar(anuncio.nombre)">ELIMINAR</button>
                     
-                  
+                      <button type="button" style="color:chocolate" class="btn btn-rounded btn-sm my-0 " (click) = "agregar1(anuncio.nombre)">AGREGAR</button>
                 </span>
               </td>
           </tr>
