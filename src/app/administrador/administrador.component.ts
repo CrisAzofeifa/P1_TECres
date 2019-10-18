@@ -14,7 +14,7 @@ export class AdministradorComponent implements OnInit {
   }
 
  
-  pestanna: string[] = ['Vendedor','Inmueble','Ubicacion', 'Anuncio', 'Perfil/Cliente', 'Ocupacion', 'Administrador', 'Aprobar/Anuncio', 'Estadística', 'Facturación', 'Reportes']
+  pestanna: string[] = ['Vendedor','Inmueble','Ubicacion', 'Anuncio', 'Perfil/Cliente', 'Ocupacion', 'Administrador', 'Perfil/Anuncio', 'Estadística', 'Facturación', 'Reportes']
 
 }
 
