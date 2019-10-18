@@ -16,7 +16,7 @@
     <button type="button"
             class="btn border border-secondary mb-1" 
             style="color: chocolate;" 
-            (click) = "agregar()">Agregar Nuevo Vendedor</button>
+            (click) = "agregar()">Agregar Nuevo Cliente</button>
     <table class="table table-dark table-responsive-md table-striped">
         <thead>
           <tr>
@@ -24,18 +24,19 @@
             <th scope="col">Descripción</th>
             <th scope="col">Nombre</th>
             <th scope="col">Incorporado por</th>
+            <th scope="col">Id del perfil</th>
             
           </tr>
         </thead>
         <tbody>
             
          
-          <tr *ngFor = "let cliente of clientes;index as i" [attr.id] = "i"  [ngClass] = "{'highlight' : cliente.Nombre == buscar('busqueda','i')}">
+          <tr *ngFor = "let cliente of perfilClientes;index as i" [attr.id] = "i"  [ngClass] = "{'highlight' : cliente.nombre == buscar('busqueda','i')}">
             
-            <td class="pt-3-half" contenteditable="true" (blur) = "actualizarLista(cliente.Nombre , 'Descripcion', $event)">{{cliente.Descripcion}}</td>
-            <td class="pt-3-half" contenteditable="true" (blur) = "actualizarLista(cliente.Nombre , 'Nombre', $event)">{{cliente.Nombre}}</td>
-            <td class="pt-3-half" contenteditable="true" (blur) = "actualizarLista(cliente.Nombre , 'cedulaAdmin', $event)">{{cliente.cedulaAdmin}}</td>
-           
+            <td class="pt-3-half" contenteditable="true" (blur) = "actualizarLista(cliente.nombre , 'descripcion', $event)">{{cliente.descripcion}}</td>
+            <td class="pt-3-half" contenteditable="true" (blur) = "actualizarLista(cliente.nombre , 'nombre', $event)">{{cliente.nombre}}</td>
+            <td class="pt-3-half" contenteditable="true" (blur) = "actualizarLista(cliente.nombre , 'incorporado_por', $event)">{{cliente.incorporado_por}}</td>
+         
             
               <td>
                 <span class="table-remove">
@@ -43,9 +44,9 @@
                     <button type="button" 
                             style="color:chocolate"
                             class="btn  btn-rounded btn-sm my-0 " 
-                            (click) = "eliminar(cliente.Nombre)">ELIMINAR</button>
+                            (click) = "eliminar(cliente.nombre)">ELIMINAR</button>
                     
-                  
+                    <button type="button" style="color:chocolate" class="btn btn-rounded btn-sm my-0 " (click) = "agregar1(cliente.nombre)">AGREGAR</button>
                 </span>
               </td>
           </tr>
@@ -53,3 +54,4 @@
         </tbody>
       </table>
 </div>
+
