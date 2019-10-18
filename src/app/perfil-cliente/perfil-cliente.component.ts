@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import {AdminPeticionesService} from '../admin-peticiones.service';
 @Component({
   selector: 'app-perfil-cliente',
   templateUrl: './perfil-cliente.component.html',
@@ -8,10 +8,16 @@ import { Component, OnInit } from '@angular/core';
 export class PerfilClienteComponent implements OnInit {
   editField: string;
   public valorBusqueda:string;
-  constructor() { }
-
+  perfilClientes: Array<any> = [];
+  constructor(private service: AdminPeticionesService) { }
+  nuevo_perfilClientes: Array<any> = [{descripcion:'Default',nombre:'Default', incorporado_por:1}];
   ngOnInit() {
+    this.service.getPerfilClientes().subscribe(p => this.perfilClientes = p);
+    console.log(this.perfilClientes);
+    this.service.postPerfilCliente(this.nuevo_perfilClientes[0]).subscribe();
   }
+
+  
 
   clientes: Array<any> = [
 
@@ -21,17 +27,30 @@ export class PerfilClienteComponent implements OnInit {
     {Descripcion: "Anunciante", Nombre: 'D', cedulaAdmin:'111'}
   ]
 
-  clienteNuevo:Array<any>= [{Descripcion: "Default", Nombre: 'Default', cedulaAdmin:'0'}]
+  clienteNuevo:Array<any>= [{Descripcion: "Default", Nombre: 'Default', incorporado_por:'0'}];
 
-  eliminar(nombre1:any){
-    
-    for (var indice = 0; indice < this.clientes.length; indice++){
-      if(this.clientes[indice].Nombre == nombre1){
-        this.clientes.splice(indice, 1);
+  eliminar(nombre1:string){
+    if(nombre1 == 'Agente' || nombre1 == 'Agente Vendedor' || nombre1 == 'Anunciante' || nombre1 == 'Constructor' || nombre1 == 'Propietario' || nombre1 == 'Vendedor'){
+      alert('No se puede eliminar este perfil de cliente pues es DEFAULT.');
+    }else{
+
+      this.service.deletePerfilCliente(nombre1).subscribe();
+
+     for (var indice = 0; indice < this.perfilClientes.length; indice++){
+      if(this.perfilClientes[indice].nombre == nombre1){
+        this.perfilClientes.splice(indice, 1);
       }
     }
-    
+
+    }
   }
+
+  agregar1(){
+    this.service.postPerfilCliente(this.nuevo_perfilClientes[0]).subscribe();
+    this.nuevo_perfilClientes = [{descripcion:'Default',nombre:'Default', incorporado_por:0}];
+    alert('Se pudo agregar con éxito el nuevo perfil de cliente.');
+  }
+
 
   cambiarValor( event:any){
     this.editField = event.target.textContent;
@@ -42,9 +61,9 @@ export class PerfilClienteComponent implements OnInit {
     const editField = event.target.textContent;
     console.log(editField);
 
-    for (var indice = 0; indice < this.clientes.length; indice++){
-      if(this.clientes[indice].Nombre == nombre1){
-        this.clientes[indice][propiedad] = editField;
+    for (var indice = 0; indice < this.perfilClientes.length; indice++){
+      if(this.perfilClientes[indice].nombre == nombre1){
+        this.perfilClientes[indice][propiedad] = editField;
         
       }
       this.editField=null;
@@ -53,17 +72,17 @@ export class PerfilClienteComponent implements OnInit {
   }
 
   imprimirLista(){
-    for (var indice = 0; indice < this.clientes.length; indice++){
-      console.log(this.clientes[indice]);
+    for (var indice = 0; indice < this.perfilClientes.length; indice++){
+      console.log(this.perfilClientes[indice]);
     }
   }
 
   agregar(){
 
     this.imprimirLista();
-    this.clientes.push(this.clienteNuevo[0]);
-    this.clienteNuevo = [{Descripcion: "Default", Nombre: 'Default', cedulaAdmin:'0'}];
-    this.editField = null;
+    this.perfilClientes.push(this.nuevo_perfilClientes[0]);
+    //this.nuevo_perfilClientes = [{descripcion:'Default',nombre:'Default', incorporado_por:0}];
+    //this.editField = null;
     
 
   }
