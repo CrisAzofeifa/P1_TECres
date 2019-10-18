@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {AdminPeticionesService} from '../admin-peticiones.service';
 
 @Component({
   selector: 'app-ocupacion',
@@ -8,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 export class OcupacionComponent implements OnInit {
   editField: string;
   public valorBusqueda:string;
-  constructor() { }
+  Ocupaciones: Array<any> = [];
+  constructor(private service: AdminPeticionesService) { }
 
   ngOnInit() {
+
+    this.service.getOcupaciones().subscribe(p => this.Ocupaciones = p);
+    console.log(this.Ocupaciones);
+    //this.service.deleteOcupaciones(13);
   }
 
   ocupaciones: Array<any> = [
@@ -21,16 +27,24 @@ export class OcupacionComponent implements OnInit {
   ]
     
 
-  ocupacionNuevo:Array<any>= [{Identificador: "0", Nombre: 'Default'}]
+  ocupacionNuevo:Array<any>= [{identificador: 0, nombre: 'Default'}]
 
-  eliminar(nombre1:any){
-    
-    for (var indice = 0; indice < this.ocupaciones.length; indice++){
-      if(this.ocupaciones[indice].Nombre == nombre1){
-        this.ocupaciones.splice(indice, 1);
+  eliminar(nombre1:number){
+    this.service.deleteOcupaciones(nombre1).subscribe();
+    for (var indice = 0; indice < this.Ocupaciones.length; indice++){
+      if(this.Ocupaciones[indice].identificador == nombre1){
+        this.Ocupaciones.splice(indice, 1);
       }
     }
     
+  }
+
+  agregar1(tipo1:any){
+    this.service.postOcupaciones(this.ocupacionNuevo[0]).subscribe();
+    this.ocupacionNuevo =  [{identificador: 0, nombre: 'Default'}];
+    alert('Se pudo agregar con éxito la nueva ocupación.');
+    window.location.reload();
+
   }
 
   cambiarValor( event:any){
@@ -42,9 +56,9 @@ export class OcupacionComponent implements OnInit {
     const editField = event.target.textContent;
     console.log(editField);
 
-    for (var indice = 0; indice < this.ocupaciones.length; indice++){
-      if(this.ocupaciones[indice].Nombre == nombre1){
-        this.ocupaciones[indice][propiedad] = editField;
+    for (var indice = 0; indice < this.Ocupaciones.length; indice++){
+      if(this.Ocupaciones[indice].nombre == nombre1){
+        this.Ocupaciones[indice][propiedad] = editField;
         
       }
       this.editField=null;
@@ -53,16 +67,16 @@ export class OcupacionComponent implements OnInit {
   }
 
   imprimirLista(){
-    for (var indice = 0; indice < this.ocupaciones.length; indice++){
-      console.log(this.ocupaciones[indice]);
+    for (var indice = 0; indice < this.Ocupaciones.length; indice++){
+      console.log(this.Ocupaciones[indice]);
     }
   }
 
   agregar(){
 
     this.imprimirLista();
-    this.ocupaciones.push(this.ocupacionNuevo[0]);
-    this.ocupacionNuevo = [{Identificador: "0", Nombre: 'Default'}];
+    this.Ocupaciones.push(this.ocupacionNuevo[0]);
+    //this.ocupacionNuevo = [{identificador: "0", nombre: 'Default'}];
     this.editField = null;
     
 
