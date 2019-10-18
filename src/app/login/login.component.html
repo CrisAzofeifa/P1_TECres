@@ -1,0 +1,309 @@
+<ul class="nav nav-tabs bg-dark text-white">
+
+    <li class="nav-item">
+    <a class="nav-link " [routerLink]="['inicio']">Buscar</a>
+    </li>
+
+    <li class="nav-item">
+    <a class="nav-link active disabled" [routerLink]="['/login']">Registrarse</a>
+    </li>
+
+    <li class="nav-item">
+    <a class="nav-link" [routerLink]="['/signin']">Ingresar</a>
+    </li>
+</ul>
+  
+ 
+    <div class="btn-group " role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-dark text-chocolate" (click)="show= true">¿Quieres comprar?</button>
+            <button type="button" class="btn btn-dark text-chocolate" (click)="show= false">¿Quieres vender?</button>
+    </div>
+
+
+      
+    <div class="container ml-2">
+     <div class="row">
+      <div class="col-6" *ngIf = "show">
+          <h3 class="mt-4"> Registra como comprador:</h3>
+           
+        <form (ngSubmit)="agregar_comprador()" class="mt-4"  >
+                
+               <div class="form-group">
+               <label for="inputText">Nombre </label>
+               <input type="text"
+                        class="form-control"
+                        name="nombre"
+                        placeholder="Carlos"
+                        [(ngModel)]="comprador.nombre"
+                        >
+               </div>
+               <div class="form-group">
+                  <label for="inputText">Primer apellido</label>
+                  <input type="text"
+                           class="form-control"
+                           name="apellido1"
+                           placeholder="Villalta"
+                           [(ngModel)]="comprador.apellido1"
+                           >
+                  </div>
+                  <div class="form-group">
+                      <label for="inputText">Segundo apellido</label>
+                      <input type="text"
+                               class="form-control"
+                               name="apellido2"
+                               placeholder="Ramírez"
+                               [(ngModel)]="comprador.apellido2"
+                               >
+                      </div>
+
+               <div class="form-group ">
+               <label for="inputState">Género</label>
+               <select name ="genero"
+                       id="inputState" 
+                       class="form-control"
+                       [(ngModel)]="comprador.genero">
+                       <option *ngFor="let genero of generos" [value]="genero.id">{{genero.nombre}}</option>
+               </select>
+               </div>
+
+
+               <div class="form-row">
+               <label for="inputCed">Fecha nacimiento</label>
+                  <input type="datetime" 
+                         name="nacimiento"
+                         class="form-control" 
+                         placeholder="AAAA-MM-DD"
+                         [(ngModel)]="comprador.nacimiento">
+               </div>
+
+               
+
+            <div class="form-row ">
+               <p class="col-md-12 mt-2">Residencia: </p>
+
+               <div class="form-group col-md-4">
+               <label for="inputState">Provincia</label>
+               <select id="inputState" 
+                       class="form-control"
+                       (click) = "get_provincias();"
+                       name ="provincia"
+                       [(ngModel)]="residencia.provincia"
+                       [value]="provincias.id"
+                       (change)="get_cantones(residencia.provincia); get_distritos()"
+                       >
+                <option   *ngFor="let provincia of provincias, index as i" > {{provincias[i]}} </option>
+               </select>
+               </div>
+
+
+                <div class="form-group col-md-4">
+                <label for="inputState">Cantón</label>
+                <select id="inputState" 
+                        class="form-control"
+                        name ="canton"
+                        [(ngModel)]="residencia.canton"
+                        (change)="get_distritos(residencia.provincia,residencia.canton)">
+                <option *ngFor="let canton of cantones, index as i"  >{{cantones[i]}}</option>
+                </select>
+                </div>
+                
+
+                <div class="form-group col-md-4">
+                <label for="inputState">Distrito</label>
+                <select id="inputState" 
+                        type="number"
+                        class="form-control"
+                        name ="comprador.id_ubicacion"
+                        [(ngModel)]= "comprador.id_ubicacion"
+                        >
+                <option *ngFor="let distrito of distritos" [value] = "distrito.id">{{distrito.distrito}}</option>
+                </select>
+                </div>
+            </div>
+
+                <div class="form-group">
+                <label for="inputUser">Ingresos por mes</label>
+                <input type="number"
+                       class="form-control" 
+                       id="inputUser"
+                       placeholder="Escriba el monto en colones"
+                       name ="ingresos_mes"
+                       [(ngModel)]="comprador.ingresos_mes">
+                </div>
+
+
+                
+                
+
+                <div class="form-group">
+                <label for="inputState">Ocupación</label>
+                <select id="inputState"
+                        type="number"
+                        class="form-control"
+                        name ="id_ocupacion"
+                        [(ngModel)]="comprador.id_ocupacion"
+                        
+                        >
+                        <option *ngFor="let ocupacion of ocupaciones, index as i" [value]="ocupacion.identificador"  >{{ocupacion.nombre}}</option>
+                    
+                </select>
+                </div>
+                
+
+                
+                <button class ="btn btn-dark mt-3"
+                        (click) = "add_interesado()"
+                        type="submit">Crear cuenta</button>
+                        
+
+                <button class="navbar-toggler"
+                        type="button"
+                        data-toggle="collapse"
+                        data-target="#navbarNav" 
+                        aria-controls="navbarNav" 
+                        aria-expanded="false" 
+                        aria-label="Toggle navigation"> 
+                        <a class="nav-link"
+                        id="B2"
+                        [routerLink]="['/signin']">
+                        ¿Ya tienes una cuenta?</a>
+                </button>
+              </form>
+          
+            </div>
+
+
+          <div class="col-6" *ngIf = "!show">
+            <h3 class="mt-4"> Registrar como vendedor: </h3>
+
+
+            <form class="mt-4" (ngSubmit)="agregar_vendedor()">  
+                 
+            <div class="form-group">
+            <label for="inputText">Nombre </label>
+            <input type="text"
+                   class="form-control"
+                   name ="ocupacion"
+                   [(ngModel)]="vendedor.nombre"
+                   placeholder="María">
+            </div>
+
+            <div class="form-group">
+                <label for="inputText">Primer apellido</label>
+                <input type="text"
+                       class="form-control"
+                       name ="apellido1"
+                       [(ngModel)]="vendedor.apellido1"
+                       placeholder="Romero">
+                </div>
+
+                <div class="form-group">
+                        <label for="inputText">Segundo apellido</label>
+                        <input type="text"
+                               class="form-control"
+                               name ="apellido2"
+                               [(ngModel)]="vendedor.apellido2"
+                               placeholder="Romero">
+                        </div>
+
+               <div class="form-group ">
+                    <label for="inputState">Nacionalidad</label>
+                    <select name ="nacionalidad"
+                            id="inputState" 
+                            class="form-control"
+                            [(ngModel)]="vendedor.nacionalidad">
+                    <option *ngFor="let gentilicio of gentilicios">{{gentilicio.nombre}}</option>
+                                </select>
+                </div>
+            <div class="form-row">
+            <label for="inputCed">Cédula</label>
+            <input type="number"
+                   class="form-control"
+                   id="inputCed" 
+                   name ="cedula"
+                   [(ngModel)]="vendedor.cedula"
+                   placeholder="Sin espacios">
+            </div>
+
+            <div class="form-row" >
+                <div class="form-group col-md-6">
+                <label for="inputEmail">Email</label>
+                <input type="text" 
+                       class="form-control" 
+                       id="inputEmail"
+                       name ="correo"
+                       [(ngModel)]="vendedor.correo"
+                       placeholder="example@dominio.com">
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="inputPassword4">Contraseña</label>
+                <input type="password" 
+                       class="form-control"
+                       id="inputPassword4"
+                       name ="pass"
+                       [(ngModel)]="vendedor.pass"
+                       placeholder="">
+            </div>
+          </div>
+                     
+          <div class="form-group">
+                       
+            <label for="inputUser">Usuario</label>       
+            <input type="text" 
+                   class="form-control"
+                   id="inputUser" 
+                   placeholder="Escriba un nombre de usuario"
+                   name ="usuario"
+                   [(ngModel)]="vendedor.usuario">
+                     
+          </div>
+                     
+                     
+                     
+          <div class="form-group ">      
+            <label for="inputState">Perfil de cliente</label>           
+            <select id="inputPerfil"
+                    class="form-control"
+                    name ="id_perfil"
+                    [(ngModel)]="vendedor.id_perfil"
+                    >
+                          
+                <option   *ngFor="let perfil of perfiles, index as i "  > {{perfil.nombre}} </option>
+                        
+            </select>
+                     
+          </div>
+          
+          <button class ="btn btn-dark mt-3"
+                  (click) = "add_cliente()"
+                  type="submit">Crear cuenta
+          </button>
+          
+          <button class="navbar-toggler"
+                  type="button" 
+                  data-toggle="collapse" 
+                  data-target="#navbarNav" 
+                  aria-controls="navbarNav" 
+                  aria-expanded="false" 
+                  aria-label="Toggle navigation"> 
+          
+            <a class="nav-link"
+               [routerLink]="['/signin']">
+               ¿Ya tienes una cuenta?</a> 
+          </button>
+
+          
+          
+        </form>
+        
+      </div>
+      
+    </div>
+    
+  </div>
+
+  
+  
+
+      

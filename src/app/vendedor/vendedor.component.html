@@ -1,0 +1,107 @@
+<h1 style="color: chocolate">Vendedores</h1>
+    
+<h3 style="color: chocolate">Nuevo vendedor</h3>
+<form>
+  <div class="form-group">
+    <label for="nombre">Nombre</label>
+    <input type="text" class="form-control" id="nombre"  placeholder="Nombre del vendedor(a)">
+  </div>
+  <div class="form-group">
+    <label for="apellido1">Primer apellido</label>
+    <input type="text" class="form-control" id="apellido1">
+  </div>
+  <div class="form-group">
+    <label for="apellido2">Segundo apellido</label>
+    <input type="text" class="form-control" id="apellido2">
+  </div>
+  <div class="form-group">
+    <label for="cedula">Cedula</label>
+    <input type="text" class="form-control" id="cedula" placeholder="Número de cedula">
+  </div>
+  <div class="form-group">
+    <label for="fechaIngreso">Fecha_ingreso</label>
+    <input type="text" class="form-control" id="fechaIngreso" placeholder="Fecha de ingreso, ejemplo: 02/06/2016">
+  </div>
+  <button type="Agregar" class="btn btn-primary" class="btn btn-secondary" (click) = "agregar('nombre','apellido1','apellido2','cedula','fechaIngreso')">Agregar</button>
+
+  <h1></h1>
+  <h3 style="color: chocolate">Tabla de Vendedores</h3>
+
+
+<div class="container ml-4 ">
+    <table class="table table-dark table-responsive-md table-striped">
+        <thead>
+          <tr>
+            
+            <th scope="col">Fecha de Ingreso</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Apellido 1</th>
+            <th scope="col">Apellido 2</th>
+            <th scope="col">Cédula</th>
+            <th scope="col">ID Vendedor</th>
+            <th scope="col">Quitar Vendedor</th>
+            <th scope="col">Modificar Vendedor</th>
+          </tr>
+        </thead>
+        <tbody>
+            
+         
+          <tr *ngFor = "let vendedor of vendedores;index as i" [attr.id] = "i">
+            
+            <td class="pt-3-half" contenteditable="true" (blur) = "actualizarLista(vendedor.cedula , 'fecha_ingreso', $event)">{{vendedor.fecha_ingreso}}</td>
+            <td class="pt-3-half" contenteditable="true" (blur) = "actualizarLista(vendedor.cedula , 'nombre', $event)">{{vendedor.nombre}}</td>
+            <td class="pt-3-half" contenteditable="true" (blur) = "actualizarLista(vendedor.cedula , 'apellido1', $event)">{{vendedor.apellido1}}</td>
+            <td class="pt-3-half" contenteditable="true" (blur) = "actualizarLista(vendedor.cedula , 'apellido2', $event)">{{vendedor.apellido2}}</td>
+            <td class="pt-3-half" contenteditable="true" (blur) = "actualizarLista(vendedor.cedula , 'cedula', $event)">{{vendedor.cedula}}</td>
+            <td class="pt-3-half" contenteditable="true" (blur) = "actualizarLista(vendedor.cedula , 'id_vendedor', $event)">{{vendedor.id_vendedor}}</td>
+            
+              <td>
+                <span class="table-remove">
+                  
+                        <button type="button"
+                                style="color:chocolate"  
+                                class="btn  btn-rounded btn-sm my-0 " 
+                                data-toggle="modal" 
+                                data-target="#Confirmar"
+                                (click) = "setIdTemp(vendedor.id_vendedor)"
+                                >ELIMINAR</button>
+
+                </span>
+              </td>
+
+              <td>
+                <span >
+                  
+                        <button type="button"
+                                style="color:chocolate"  
+                                class="btn  btn-rounded btn-sm my-0 " 
+                                (click) = "modificarVendedor(vendedor.id_vendedor, vendedor.fecha_ingreso,vendedor.nombre,vendedor.apellido1,vendedor.apellido2,vendedor.cedula)"
+                                >GUARDAR CAMBIOS</button>
+
+                </span>
+              </td>
+          </tr>
+     
+        </tbody>
+      </table>
+</div>
+
+<div class="modal fade" id="Confirmar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="Confirmar">¿Estás seguro?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Al pulsar el botón de aceptar el vendedor será borrado de la base de datos.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" (click) = "eliminarVendedor(getIdTemp())" data-dismiss="modal">Aceptar</button>
+      </div>
+    </div>
+  </div>
+</div>

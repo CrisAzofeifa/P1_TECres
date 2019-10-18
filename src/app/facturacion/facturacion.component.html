@@ -1,0 +1,34 @@
+<h1>Pre-Facturación de Anuncios</h1>
+
+<div class="container ml-4">
+        <form class="form-inline my-2 my-lg-0">
+            <input id = "busqueda" class="form-control mr-sm-2" type="search" placeholder="Prefactura por ID" aria-label="Search">
+            <button type = "button" class="btn btn-outline-secondary my-2 my-sm-0"  (click) = "buscar('busqueda','i')">Buscar</button>
+        </form>
+        
+        <table class="table table-dark table-responsive-md table-striped">
+            <thead>
+              <tr>
+                
+                <th scope="col">ID del anuncio</th>
+                <th scope="col">Nombre del anuncio</th>
+                <th scope="col">Monto</th>
+                
+              </tr>
+            </thead>
+            <tbody>
+                
+             
+              <tr *ngFor = "let prefactura of prefacturas;index as i" [attr.id] = "i"  [ngClass] = "{'highlight' : prefactura.IDAnuncio == buscar('busqueda','i')}">
+                
+                <td class="pt-3-half" contenteditable="true" (blur) = "actualizarLista(prefactura.IDAnuncio , 'IDAnuncio', $event)">{{prefactura.IDAnuncio}}</td>
+                <td class="pt-3-half" contenteditable="true" (blur) = "actualizarLista(prefactura.IDAnuncio , 'NombreAnuncio', $event)">{{prefactura.NombreAnuncio}}</td>
+                <td class="pt-3-half" contenteditable="true" (blur) = "actualizarLista(prefactura.IDAnuncio , 'Monto', $event)">{{prefactura.Monto}}</td>
+                
+                
+                  
+              </tr>
+         
+            </tbody>
+          </table>
+    </div>

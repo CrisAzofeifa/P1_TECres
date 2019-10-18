@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+
+    </head>
+    <body>
+        <div class="container-fluid "  > 
+        <h1 class="d-flex justify-content-center p-3 text-white mt-2 border border-dark "  id='primero'>{{anuncio.titulo}}</h1>
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+  
+  <ol class="carousel-indicators">
+    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+  </ol>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src={{anuncio.foto_principal}} class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item" *ngFor=" let foto_secundaria of anuncio.fotos_secundarias, index as i"  >
+      <img src={{anuncio.fotos_secundarias[i]}} class="d-block w-100" alt="...">
+    </div>
+    
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Anterior</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Siguiente</span>
+  </a>
+</div>
+
+<div class="row">
+<div class="container col-5 mt-3">
+    <div class="d-flex bd-highlight ">
+        <h3 class=" font-weight-bold  mr-auto p-2  font-weight-bold ">Ubicación: </h3>
+        <h5 class=" font-weight-bold  p-2  mt-2"> {{anuncio.provincia}}, {{anuncio.canton}}, {{anuncio.distrito}}</h5>
+    </div>
+    <div class="d-flex bd-highlight ">
+      <h3 class=" font-weight-bold  mr-auto p-2  font-weight-bold ">Tamaño de construcción: </h3>
+      <h5 class=" font-weight-bold  p-2  mt-2"> {{anuncio.tamano_construccion}}</h5>
+  </div>
+  <div class="d-flex bd-highlight ">
+    <h3 class=" font-weight-bold  mr-auto p-2  font-weight-bold ">Tamaño de terreno: </h3>
+    <h5 class=" font-weight-bold  p-2  mt-2"> {{anuncio.tamano_terreno }}</h5>
+</div>
+<div class="d-flex bd-highlight ">
+  <h3 class=" font-weight-bold  mr-auto p-2  font-weight-bold ">Cantidad de niveles: </h3>
+  <h5 class=" font-weight-bold  p-2  mt-2"> {{anuncio.niveles}}</h5>
+</div>
+<div class="d-flex bd-highlight ">
+  <h3 class=" font-weight-bold  mr-auto p-2  font-weight-bold ">Cantidad de baños: </h3>
+  <h5 class=" font-weight-bold  p-2  mt-2"> {{anuncio.cant_banos}}</h5>
+</div>
+<div class="d-flex bd-highlight ">
+  <h3 class=" font-weight-bold  mr-auto p-2  font-weight-bold ">Cantidad de habitaciones: </h3>
+  <h5 class=" font-weight-bold  p-2  mt-2"> {{anuncio.cant_habitaciones}}</h5>
+</div>
+<div class="d-flex bd-highlight ">
+  <h3 class=" font-weight-bold  mr-auto p-2  font-weight-bold ">Espacios para parqueo: </h3>
+  <h5 class=" font-weight-bold  p-2  mt-2"> {{anuncio.espacios_parqueo}}</h5>
+</div>
+
+    <div class="d-flex bd-highlight " >
+            <h3 class="  font-weight-bold  mr-auto p-2 bd-highligh "
+               style="text-decoration: underline  ">Precio: </h3>
+            <h5 class=" font-weight-bold p-2 bd-highligh"
+               style="text-decoration: underline"> {{anuncio.precio}}</h5>
+        </div>
+                
+        
+                
+</div>
+
+<div class="container col-5  mt-3  d-flex " >
+    <button type="button" class="btn btn-dark" style="height: 2cm;" >Enviar mensaje al vendedor</button>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Nuevo mensaje</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+    
+        <form  (ngSubmit)="enviar()">
+          <div class="form-group">
+            <label for="message-text" 
+                   class="col-form-label"
+                   
+            >Escriba el mensaje:</label>
+            <textarea class="form-control"
+                      id="message-text"
+                      name="contenido"
+                      [(ngModel)]="mensaje.contenido"></textarea>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+              <button type="submit" class="btn btn-primary"  >Enviar</button>
+            </div>
+        </form>
+      </div>
+      
+    </div>
+  </div>
+</div>
+</div>
+                
+        
+</div>    
+        </div> 
+</body>
+</html>
+

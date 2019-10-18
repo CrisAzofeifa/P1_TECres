@@ -1,0 +1,22 @@
+
+a,a:visited, #B2, h3 {
+    color: chocolate;
+    
+  }
+  
+  a:hover,#B1:hover, .nav-link:hover {
+    color:white;
+  }
+
+  
+  #B1, #B1:visited {
+      color: #ffffff;
+      
+    }
+  h3{
+    margin: 3px
+  }
+
+  ul{
+    list-style:none
+}

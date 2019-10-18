@@ -1,0 +1,16 @@
+a,a:visited {
+  color: chocolate;
+  
+}
+
+a:hover,#B1:hover, .nav-link:hover {
+  color:white;
+}
+
+  
+  #B1, #B1:visited {
+      color: #ffffff;
+      
+    }
+
+  

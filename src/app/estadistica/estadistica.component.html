@@ -1,0 +1,7 @@
+<h1>Estadísticas</h1>
+
+<div *ngFor = "let anuncio of anuncios;index as i"  [attr.id] = "i"   class="progress">
+        
+    <div [ngStyle]="{'width': anuncio.Visitas + '%'}" [ngClass]= "{'progress-bar progress-bar-striped bg-success': anuncio.Tipo == 'normal','progress-bar progress-bar-striped bg-danger': anuncio.Tipo == 'destacado','progress-bar progress-bar-striped bg-warning':anuncio.Tipo == 'oro', 'progress-bar progress-bar-striped bg-info': anuncio.Tipo == 'platino','progress-bar': anuncio.Tipo == nuevo}" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" >{{anuncio.Titulo}}</div>
+     
+</div>

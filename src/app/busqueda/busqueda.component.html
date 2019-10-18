@@ -1,0 +1,186 @@
+        <div class="row container-fluid "  > 
+ 
+        <div class="col-3  ml-1 d-flex justify-content-center">
+        <form (ngSubmit)="buscar()" class="mt-4"  >
+                <div class="input-group mt-4 mb-2 ">
+                <input type="text"
+                class="form-control"
+                name="nombre"
+                [(ngModel)]="busquedas.nombre"
+                placeholder="¿Qué estás buscando?"
+                aria-label="¿Qué estás buscando?"
+                aria-describedby="button-addon2">
+    
+                <div class="input-group-append ">
+                <button class="btn btn-outline-secondary "
+                            type="submit"
+                            (click) = "get_filtro(busquedas)"
+                            [routerLink]="['/busqueda']"
+                            id="button-addon2 ">Buscar
+                            
+                </button>
+                </div>
+    
+                </div>
+
+
+      <button type="button" class="col-12 btn btn-white border border-dark" data-toggle="modal" data-target="#exampleModal">
+        Ubicación
+      </button>
+      
+      <div class="row">
+            <h6 class="col-2 mt-3">Precio: </h6>
+            <div class="col-5 input-group mb-3 mt-3 ">
+            <input type="text"
+                   class="form-control" 
+                   placeholder="Min"
+                   name="pmax"
+                   [(ngModel)]="busquedas.pmax"
+                   aria-label="Username" 
+                   aria-describedby="basic-addon1">
+            </div>
+            <div class=" col-5 input-group mb-3 mt-3 ">
+            <input type="text"
+                    class="form-control" 
+                    placeholder="Max" 
+                    name="pmin"
+                    [(ngModel)]="busquedas.pmin"
+                    aria-label="Username" 
+                    aria-describedby="basic-addon1">
+      </div>
+      </div>
+
+      <div class="row">
+            <h6 class="col-4  mt-3">Habitaciones: </h6>
+            <div class="col-7 input-group mb-3 mt-3 ">
+            <input type="text" 
+                   class="form-control" 
+                   placeholder="Cantidad" 
+                   aria-label="Username" 
+                   name="habitaciones"
+                   [(ngModel)]="busquedas.habitaciones"
+                   aria-describedby="basic-addon1">
+            </div>
+            
+      </div>
+      
+      
+  
+      <div class="modal fade"
+           id="exampleModal" 
+           tabindex="-1" 
+           role="dialog" 
+           aria-labelledby="exampleModalLabel" 
+           aria-hidden="true">
+      <div class="modal-dialog" 
+           role="document">
+      <div class="modal-content">
+      <div class="modal-header">
+      <h5  class="modal-title" 
+           id="exampleModalLabel">¿Donde desea buscar? </h5>
+      <button type="button" 
+              class="close" 
+              data-dismiss="modal" 
+              aria-label="Close">
+      <span   aria-hidden="true">&times;</span>
+      </button>
+      </div>
+      <div class="row modal-body">
+
+  
+               
+ 
+                <div class="form-group col-md-4">
+                <label for="inputState">Provincia</label>
+                <select id="inputState" 
+                        class="form-control"
+                        (click) = "get_provincias();"
+                        name ="provincia"
+                        
+                        [value]="provincias.id"
+                        (change)="get_cantones(residencia.provincia); get_distritos()"
+                        >
+                 <option   *ngFor="let provincia of provincias, index as i" > {{provincias[i]}} </option>
+                </select>
+                </div>
+ 
+ 
+                 <div class="form-group col-md-4">
+                 <label for="inputState">Cantón</label>
+                 <select id="inputState" 
+                         class="form-control"
+                         name ="canton"
+                         
+                         (change)="get_distritos(residencia.provincia,residencia.canton)">
+                 <option *ngFor="let canton of cantones, index as i"  >{{cantones[i]}}</option>
+                 </select>
+                 </div>
+                 
+ 
+                 <div class="form-group col-md-4">
+                 <label for="inputState">Distrito</label>
+                 <select id="inputState" 
+                         type="number"
+                         class="form-control"
+                         name ="id"
+                         [(ngModel)]= "busquedas.id"
+                         >
+                 <option *ngFor="let distrito of distritos" [value] = "distrito.id_ubicacion">{{distrito.distrito}}</option>
+                 </select>
+                 </div>
+             </div>
+            
+            <div class="modal-footer">
+              <button  class="btn btn-secondary" data-dismiss="modal">Listo</button>
+            </div>
+            </div>
+            </div>
+            </div>
+            </form>
+            </div>
+
+                      <div class="col-8 d-flex justify-content-center ml-5">
+                      <ul>
+                      <li *ngFor=" let propiedad of propiedades, index as i">
+                      <div class="row mt-3" style="width: 55rem;">
+
+                        <div class="col-5">
+                        <img src="{{propiedad.foto_principal}}" class="card-img-top" alt="...">
+                        </div>
+                        <div class="col-4">
+                        <h5 class="col-12 d-flex justify-content-center card-title">{{propiedad.titulo}}</h5>
+                        <div class="row">
+                            <p class="  font-weight-bold col-2">Ubicación: </p>
+                            <p class="card-text col-9  ml-4"> {{propiedad.distrito}}, {{propiedad.canton}}, {{propiedad.provincia}}</p>
+                        </div>
+                        <div class="row">
+                            <p class=" col-6 font-weight-bold col-2">Tamaño contrucción: </p>
+                            <p class="card-text"> {{propiedad.tamano_construccion}}</p>
+                        </div>
+                        <div class="row">
+                            <p class=" col-6 font-weight-bold col-2">Tamaño de terreno: </p>
+                            <p class="card-text"> {{propiedad.tamano_terreno}}</p>
+                        </div>
+                        
+                        <div class="row" >
+                              <p class=" col-6 font-weight-bold col-2"
+                                 style="text-decoration: underline    ">Precio: </p>
+                              <p class="card-text font-weight-bold"
+                                 style="text-decoration: underline"> {{propiedad.precio}}</p>
+                        </div>               
+                        </div>
+                        <div class="col-3">
+                                <a id="bt-ir"class="btn btn-dark" [routerLink]="['/anuncio', propiedad.id_propiedad]" >Ir a la propiedad</a>
+                        </div>    
+                        </div>    
+                        </li>
+                        </ul>
+            
+    
+                       </div>
+  
+                       </div>
+
+
+
+

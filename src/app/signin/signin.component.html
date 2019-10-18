@@ -1,0 +1,47 @@
+<ul class="nav nav-tabs bg-dark text-white">
+        <li class="nav-item">
+        <a class="nav-link " [routerLink]="['inicio']">Buscar</a>
+        </li>
+
+        <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/login']">Registrarse</a>
+        </li>
+    
+        <li class="nav-item">
+        <a class="nav-link active disabled" [routerLink]="['/signin']">Ingresar</a>
+        </li>
+  
+</ul>
+
+<div class= "container">
+        <form (ngSubmit)="entrar()" class="mt-4" >
+            <div class="form-group">
+            <label for="exampleInputEmail1">Correo: </label>
+            <input type="email" 
+                   class="form-control"
+                   id="input1" 
+                   aria-describedby="emailHelp" 
+                   placeholder="Escriba aquí su email"
+                   name="correo"
+                  [(ngModel)]="nuevo.correo">
+            
+            </div>
+
+            <div class="form-group">
+            <label for="exampleInputPassword1">Contraseña</label>
+            <input type="password"
+                   class="form-control" 
+                   id="input2" 
+                   placeholder="Escriba aquí la contraseña"
+                   name="contrasena"
+                  [(ngModel)]="nuevo.contrasena">
+            </div>
+            
+  
+
+            <button class ="btn btn-dark mt-3"
+                    type="submit" (click)="get_login(nuevo.correo,nuevo.contrasena)"  >Entrar
+            </button>
+            </form>
+              
+</div>

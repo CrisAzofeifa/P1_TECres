@@ -1,0 +1,54 @@
+<h1 style="color: chocolate">Ocupaciones</h1>
+
+<div class="container ml-4">
+    <form class="form-inline my-2 my-lg-0">
+        <input id = "busqueda"
+               class="form-control mr-sm-2 mb-1" 
+               type="search" 
+               placeholder="Buscar ocupación por nombre" 
+               style="width: 8cm;"
+               aria-label="Search">
+        <button type = "button" 
+                class="btn btn-outline-secondary mb-1" 
+                style="color: chocolate;" 
+                (click) = "buscar('busqueda','i')">Buscar</button>
+    </form>
+    <button type="button" 
+            style="color: chocolate;" 
+            class="btn border border-secondary mb-1" 
+            (click) = "agregar()">Agregar Nueva Ocupación</button>
+    <table class="table table-dark table-responsive-md table-striped">
+        <thead>
+          <tr>
+            
+            <th scope="col">Identificador</th>
+            <th scope="col">Nombre</th>
+            
+            <th scope="col">Quitar Ocupación</th>
+          </tr>
+        </thead>
+        <tbody>
+            
+         
+          <tr *ngFor = "let ocupacion of ocupaciones;index as i" [attr.id] = "i"  [ngClass] = "{'highlight' : ocupacion.Nombre == buscar('busqueda','i')}">
+            
+            <td class="pt-3-half" contenteditable="true" (blur) = "actualizarLista(ocupacion.Nombre , 'FechaIngreso', $event)">{{ocupacion.Identificador}}</td>
+            <td class="pt-3-half" contenteditable="true" (blur) = "actualizarLista(ocupacion.Nombre , 'Nombre', $event)">{{ocupacion.Nombre}}</td>
+            
+            
+              <td>
+                <span class="table-remove">
+                  
+                    <button type="button" 
+                            style="color:chocolate"
+                            class="btn btn-rounded btn-sm my-0 " 
+                            (click) = "eliminar(ocupacion.Nombre)">ELIMINAR</button>
+                    
+                  
+                </span>
+              </td>
+          </tr>
+     
+        </tbody>
+      </table>
+</div>

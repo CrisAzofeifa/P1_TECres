@@ -1,0 +1,103 @@
+<h1 style="color: chocolate" >Ubicaciones</h1>
+
+<div><h3 style="color: chocolate" >Nueva Ubicación</h3></div>
+<form>
+  <div class="form-group">
+    <label for="provincia">Provincia</label>
+    <input type="text" class="form-control" id="idprovincia"  placeholder="Nombre de la provincia">
+  </div>
+  <div class="form-group">
+    <label for="canton">Canton</label>
+    <input type="text" class="form-control" id="idcanton" placeholder="Nombre del canton">
+  </div>
+  <div class="form-group">
+    <label for="distrito">Distrito</label>
+    <input type="text" class="form-control" id="idistrito" placeholder="Nombre del distrito">
+  </div>
+  <button type="Agregar" class="btn btn-primary" class="btn btn-secondary" (click) = "agregarUbicacion('idprovincia','idcanton','idistrito')">Agregar</button>
+
+
+
+
+<div class="container ml-4">
+        
+        
+        <h3 style="color: chocolate" >Tabla de ubicaciones</h3>
+       
+
+        <table class="table table-dark table-responsive-md table-striped" id = "tablaubicaciones">
+            <thead>
+              <tr>
+                <th scope="col">Provincia</th>
+                <th scope="col">Cantón</th>
+                <th scope="col">Distrito</th>
+                <th scope="col">ID</th>
+                <th scope="col">Quitar Ubicación</th>
+                <th scope="col">Modificar Ubicacion</th>
+              </tr>
+            </thead>
+            <tbody>
+                
+             
+              <tr *ngFor = "let ubicacion of ubicaciones;index as i" [attr.id] = "i">
+                
+                <td class="pt-3-half" contenteditable="true" (blur) = "actualizarLista(ubicacion.id , 'provincia', $event)">{{ubicacion.provincia}}</td>
+                <td class="pt-3-half" contenteditable="true" (blur) = "actualizarLista(ubicacion.id , 'canton', $event)">{{ubicacion.canton}}</td>
+                <td class="pt-3-half" contenteditable="true" (blur) =  "actualizarLista(ubicacion.id , 'distrito', $event)">{{ubicacion.distrito}}</td>
+                <td class="pt-3-half" contenteditable="true" (blur) = "actualizarLista(ubicacion.id , '$id', $event)">{{ubicacion.id}}</td>
+                
+                
+                  <td>
+                      
+                        <button type="button"
+                                style="color:chocolate"  
+                                class="btn  btn-rounded btn-sm my-0 " 
+                                data-toggle="modal" 
+                                data-target="#Confirmar"
+                                (click) = "setIdTemp(ubicacion.id)"
+                                >ELIMINAR</button>
+
+                  </td>
+
+                  <span >
+                  
+                    <button type="button"
+                            style="color:chocolate"  
+                            class="btn  btn-rounded btn-sm my-0 " 
+                            (click) = "modificarUbicacion(ubicacion.provincia, ubicacion.canton,ubicacion.distrito,ubicacion.id)"
+                            >GUARDAR CAMBIOS</button>
+
+            </span>
+               
+                  
+              </tr>
+         
+            </tbody>
+            
+          </table>
+          
+    </div>
+
+
+ 
+    <div class="modal fade" id="Confirmar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="Confirmar">¿Estás seguro?</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            Al pulsar el botón de aceptar la Ubicación será borrada de la base de datos.
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-primary" (click) = "eliminar(getIdTemp())" data-dismiss="modal">Aceptar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+

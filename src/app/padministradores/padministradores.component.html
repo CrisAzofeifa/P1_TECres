@@ -1,0 +1,60 @@
+<h1 style="color: chocolate">Administradores</h1>
+
+<div class="container ml-4">
+    <form class="form-inline my-2 my-lg-0">
+        <input id = "busqueda" 
+               class="form-control mr-sm-2 mb-1" 
+               type="search" 
+               placeholder="Buscar admin por cédula" 
+               aria-label="Search"
+               style="width: 8cm;">
+        <button type = "button" 
+                class="btn btn-outline-secondary mb-1"  
+                (click) = "buscar('busqueda','i')">Buscar</button>
+    </form>
+    <button type="button" 
+            class="btn border border-secondary mb-1" 
+            style="color: chocolate;"
+            (click) = "agregar()">Agregar Nuevo Vendedor</button>
+    <table class="table table-dark table-responsive-md table-striped">
+        <thead>
+          <tr>
+            
+            <th scope="col">Fecha de Nacimiento</th>
+            <th scope="col">Fecha de ingreso a TECres</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Apellido 1</th>
+            <th scope="col">Apellido 2</th>
+            <th scope="col">Edad</th>
+            <th scope="col">Cédula</th>
+          </tr>
+        </thead>
+        <tbody>
+            
+         
+          <tr *ngFor = "let administrador of administradores;index as i" [attr.id] = "i"  [ngClass] = "{'highlight' : administrador.Cedula == buscar('busqueda','i')}">
+            
+            <td class="pt-3-half" contenteditable="true" (blur) = "actualizarLista(administrador.cedula , 'FechaNacimiento', $event)">{{administrador.FechaNacimiento}}</td>
+            <td class="pt-3-half" contenteditable="true" (blur) = "actualizarLista(administrador.cedula , 'FechaIngresoTECres', $event)">{{administrador.FechaIngresoTECres}}</td>
+            <td class="pt-3-half" contenteditable="true" (blur) = "actualizarLista(administrador.cedula , 'Nombre', $event)">{{administrador.Nombre}}</td>
+            <td class="pt-3-half" contenteditable="true" (blur) = "actualizarLista(administrador.cedula , 'Apellido1', $event)">{{administrador.Apellido1}}</td>
+            <td class="pt-3-half" contenteditable="true" (blur) = "actualizarLista(administrador.cedula , 'Apellido2', $event)">{{administrador.Apellido2}}</td>
+            <td class="pt-3-half" contenteditable="true" (blur) = "actualizarLista(administrador.cedula , 'Edad', $event)">{{administrador.Edad}}</td>
+            <td class="pt-3-half" contenteditable="true" (blur) = "actualizarLista(administrador.cedula , 'Cedula', $event)">{{administrador.Cedula}}</td>
+            
+              <td>
+                <span class="table-remove">
+                  
+                    <button type="button" 
+                            style="color:chocolate"
+                            class="btn  btn-rounded btn-sm my-0 " 
+                            (click) = "eliminar(administrador.Cedula)">ELIMINAR</button>
+                    
+                  
+                </span>
+              </td>
+          </tr>
+     
+        </tbody>
+      </table>
+</div>

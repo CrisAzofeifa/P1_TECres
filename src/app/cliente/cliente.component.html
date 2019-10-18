@@ -1,0 +1,369 @@
+<div class="container">
+   
+        <div class="row align-items-start mt-4" >
+
+    
+
+          <div class="col">
+          <button type="button" 
+                  class="btn btn-dark text-chocolate" 
+                  (click)="show1= true; show2= false; show3=false"><img src="https://i.ibb.co/JkXb8x5/girl-1600991-960-720.png" class="rounded mx-auto d-block img-thumbnail" alt="..."></button>
+          </div>
+ 
+
+          <div class="col">
+          <button type="button" class="btn btn-dark text-chocolate" (click)="show1= false; show2= true; show3=false "><img src="https://i.ibb.co/2jddknk/businessman-1600975-1280.png" class="rounded mx-auto d-block img-thumbnail" alt="..."></button>
+          </div>
+          
+
+          <div class="col">
+          <button type="button" class="btn btn-dark text-chocolate" (click)="show1= false; show2= false; show3=true"><img src="https://i.ibb.co/phZ4Wwj/woman-1601016-960-720.png" class="rounded mx-auto d-block img-thumbnail" alt="..."></button>
+          </div>
+
+          <div class="col">
+
+              <button class="btn  btn-white border border-dark " (click)= "TEST()" >Actualizar</button>
+            
+              <button  *ngIf=show1 
+                        type="button" 
+                        class="col-12 btn btn-white border border-dark mt-1" 
+                        data-toggle="modal" 
+                        data-target="#exampleModal">
+                        Agregar anuncio
+              </button>
+              <button  *ngIf=show2 
+                        type="button" 
+                        class="col-12 btn btn-white border border-dark" 
+                        data-toggle="modal" 
+                        data-target="#exampleModal2">
+                        Agregar propiedad
+              </button>
+              <button  *ngIf=show13
+                        type="button" 
+                        class="col-12 btn btn-white border border-dark" 
+                        data-toggle="modal" 
+                        data-target="#exampleModal">
+                        Agregar público
+              </button>
+          </div>
+
+        </div>
+            
+      </div>
+
+
+      <div class="container" *ngIf=show1><table class="table">
+          <thead class="thead-warning bg-dark text-white">
+            <tr>
+              <th scope="col">Título</th>
+              <th scope="col">Modalidad</th>
+              <th scope="col">Visitas</th>
+              <th scope="col">Tipo</th>
+              <th scope="col">Precio</th>
+              <th scope="col">Propiedad</th> 
+              <th scope="col">Visitas</th> 
+              
+
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let anuncio of anuncios; index as i">
+              <th scope="row">{{i+1}}</th>
+              <td>{{anuncio.titulo}}</td>
+              <td>{{anuncio.modalidad}}</td>
+              <td>{{anuncio.tipo_anuncio}}</td>
+              <td>{{anuncio.precio}}</td>
+              <td>{{anuncio.id_propiedad}}</td>
+              <td>{{anuncio.precio}}</td>
+                          
+            </tr>
+            
+          </tbody>
+        </table></div>
+
+        <div class="container" *ngIf=show2><table class="table">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Título</th>
+                <th scope="col">Ubicación</th>
+                <th scope="col">Foto principal</th>
+               
+                <th scope="col">Tamaño de terreno</th>
+                <th scope="col">Niveles</th>
+                <th scope="col">Tipo de piso</th>
+                <th scope="col">¿Piscina?</th>
+                <th scope="col">¿Gimnasio?</th>
+                <th scope="col">Cant. de baños</th>
+                <th scope="col">Cant. de habitaciones</th>
+                <th scope="col">Espacios de parqueo</th>
+                <th scope="col">¿Parqueo de visitas?</th>
+                <th scope="col">Tipo de inmueble</th>
+              
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let propiedad of propiedades ; index as i">
+                  <th scope="row">{{propiedad.id_propiedad}}</th>
+                <th scope="row">{{propiedad.titulo}}</th>
+                <td>{{propiedad.ubicacion}}</td>
+              
+                <td><img src="{{propiedad.foto_principal}}"class="card-img-top img-tabla-1" ></td>
+            
+                <td>{{propiedad.tamano_terreno}}</td>
+                <td>{{propiedad.niveles}}</td>
+                <td>{{propiedad.tipo_piso}}</td>
+                <td>{{propiedad.piscina}}</td>
+                <td>{{propiedad.gimnasio}}</td>
+                <td>{{propiedad.cantidad_banos}}</td>
+                <td>{{propiedad.cant_habitaciones}}</td>
+                <td>{{propiedad.espacios_parqueo}}</td>
+                <td>{{propiedad.parqueo_visitas}}</td>
+                <td>{{propiedad.inmueble}}</td>
+                      
+              </tr>
+              
+            </tbody>
+          </table></div>
+
+          <div class="container" *ngIf=show3><table class="table">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">Nombre</th>
+              </thead>
+              <tbody>
+                <tr *ngFor="let publico of publicos ; index as i">
+                  <th scope="row">{{i}}</th>
+                  <td>{{publico.nombre}}</td>
+
+                </tr>
+                
+              </tbody>
+            </table></div>
+
+      <div>
+          <form (ngSubmit)="add()" class="mt-4"  >
+              <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Escriba los datos para el nuevo anuncio: </h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="row modal-body">
+                        <div class="col-6" >
+
+                            <form class="mt-4" (ngSubmit)="agregar_anuncio()">  
+                                 
+                            <div class="form-group">
+                            <label for="inputText">Titulo</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name ="titulo"
+                                   [(ngModel)]= "anuncioNuevo.titulo"
+                                   placeholder="Amplio apartamento">
+                            </div>
+                
+                            <div class="form-group ">
+                                <label for="inputState">Modalidad</label>
+                                <select name ="modalidad"
+                                        id="inputState" 
+                                        class="form-control"
+                                        [(ngModel)]= "anuncioNuevo.modalidad"
+                                        >
+                                <option >Venta</option>
+                                <option >Alquiler</option>
+                                            </select>
+                            </div>
+                
+                                <div class="form-group">
+                                        <label for="inputText">Precio</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               name ="precio"
+                                               [(ngModel)]= "anuncioNuevo.precio"
+                                               placeholder="1000000">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="inputText">Tarjeta a realizar el cobro</label>
+                                            <input type="text"
+                                                   class="form-control"
+                                                   name ="tarjeta_credito"
+                                                   [(ngModel)]= "anuncioNuevo.tarjeta_credito"
+                                                   placeholder="45687289342">
+                                            </div>
+                                        <div class="form-group ">
+                                            <label for="inputState">Tipo anuncio</label>
+                                            <select name ="tipo"
+                                                    id="inputState" 
+                                                    class="form-control"
+                                                    [(ngModel)]= "anuncioNuevo.tipoAnuncio"
+                                                    (click)="get_tipo_anuncio()"
+                                                    >
+                                            <option *ngFor="let tipo of tiposAnuncios">{{tipo.nombre}}</option>
+                                                        </select>
+                                        </div>
+                                        <div class="form-group ">
+                                            <label for="inputState">Propiedad</label>
+                                            <select name ="popiedad"
+                                                    id="inputState" 
+                                                    class="form-control"
+                                                    [(ngModel)]= "anuncioNuevo.propiedad"
+                                                    >
+                                            <option *ngFor="let propiedad of propiedades" [value] = "propiedad.id_propiedad">{{propiedad.titulo}}</option>
+                                                        </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="inputText">Fecha de creación</label>
+                                            <input type="text"
+                                                   class="form-control"
+                                                   name ="inicio"
+                                                   [(ngModel)]= "anuncioNuevo.inicio"
+                                                   placeholder="AAAA-MM-DD">
+                                            </div>
+                          <button class ="btn btn-dark mt-3"
+                                  (click)="add_anuncio()"
+                                  data-dismiss="modal"
+                                  type="submit">Añadir
+                          </button>
+                          <button  class="btn btn-secondary ml-2 mt-3" data-dismiss="modal">Cancelar</button>
+ 
+                        </form>
+                        
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+
+
+            <div>
+                <form (ngSubmit)="add2()" class="mt-4"  >
+                    <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Escriba los datos para la nueva propiedad: </h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="row modal-body">
+                              <div class="col-6" >
+      
+                                  <form class="mt-4" (ngSubmit)="agregar_anuncio()">  
+                                       
+                                  <div class="form-group">
+                                  <label for="inputText">Titulo</label>
+                                  <input type="text"
+                                         class="form-control"
+                                         name ="titulo"
+                                         [(ngModel)]= "anuncioNuevo.titulo"
+                                         placeholder="Amplio apartamento">
+                                  </div>
+                      
+                                  <div class="form-group ">
+                                      <label for="inputState">Modalidad</label>
+                                      <select name ="modalidad"
+                                              id="inputState" 
+                                              class="form-control"
+                                              [(ngModel)]= "anuncioNuevo.modalidad"
+                                              >
+                                      <option >Venta</option>
+                                      <option >Alquiler</option>
+                                                  </select>
+                                  </div>
+                      
+                                      <div class="form-group">
+                                              <label for="inputText">Precio</label>
+                                              <input type="text"
+                                                     class="form-control"
+                                                     name ="precio"
+                                                     [(ngModel)]= "anuncioNuevo.precio"
+                                                     placeholder="1000000">
+                                              </div>
+      
+                                              <div class="form-group">
+                                                  <label for="inputText">Tarjeta a realizar el cobro</label>
+                                                  <input type="text"
+                                                         class="form-control"
+                                                         name ="tarjeta_credito"
+                                                         [(ngModel)]= "anuncioNuevo.tarjeta_credito"
+                                                         placeholder="45687289342">
+                                                  </div>
+                                              <div class="form-group ">
+                                                  <label for="inputState">Tipo anuncio</label>
+                                                  <select name ="tipo"
+                                                          id="inputState" 
+                                                          class="form-control"
+                                                          [(ngModel)]= "anuncioNuevo.tipoAnuncio"
+                                                          (click)="get_tipo_anuncio()"
+                                                          >
+                                                  <option *ngFor="let tipo of tiposAnuncios">{{tipo.nombre}}</option>
+                                                              </select>
+                                              </div>
+                                              <div class="form-group ">
+                                                  <label for="inputState">Propiedad</label>
+                                                  <select name ="popiedad"
+                                                          id="inputState" 
+                                                          class="form-control"
+                                                          [(ngModel)]= "anuncioNuevo.propiedad"
+                                                          >
+                                                  <option *ngFor="let propiedad of propiedades" [value] = "propiedad.id_propiedad">{{propiedad.titulo}}</option>
+                                                              </select>
+                                              </div>
+                                              
+                                              <div class="form-group">
+                                                  <label for="inputText">Fecha de creación</label>
+                                                  <input type="text"
+                                                         class="form-control"
+                                                         name ="inicio"
+                                                         [(ngModel)]= "anuncioNuevo.inicio"
+                                                         placeholder="AAAA-MM-DD">
+                                                  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                  
+                                <button class ="btn btn-dark mt-3"
+                                        (click)="add_anuncio()"
+                                        data-dismiss="modal"
+                                        type="submit">Añadir
+                                </button>
+                                <button  class="btn btn-secondary ml-2 mt-3" data-dismiss="modal">Cancelar</button>
+       
+                              </form>
+                              
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+            </div>
+           
+
+      </div>
+  
+       
+
+
+
+
