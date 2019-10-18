@@ -19,7 +19,7 @@
     <table class="table table-dark table-responsive-md table-striped">
         <thead>
           <tr>
-            
+            <th scope="col">ID</th>
             <th scope="col">Fecha de Nacimiento</th>
             <th scope="col">Fecha de ingreso a TECres</th>
             <th scope="col">Nombre</th>
@@ -27,20 +27,21 @@
             <th scope="col">Apellido 2</th>
             <th scope="col">Edad</th>
             <th scope="col">Cédula</th>
+            <th scope="col">Quitar/Agregar/Modificar el Administrador
           </tr>
         </thead>
         <tbody>
             
          
-          <tr *ngFor = "let administrador of administradores;index as i" [attr.id] = "i"  [ngClass] = "{'highlight' : administrador.Cedula == buscar('busqueda','i')}">
-            
-            <td class="pt-3-half" contenteditable="true" (blur) = "actualizarLista(administrador.cedula , 'FechaNacimiento', $event)">{{administrador.FechaNacimiento}}</td>
-            <td class="pt-3-half" contenteditable="true" (blur) = "actualizarLista(administrador.cedula , 'FechaIngresoTECres', $event)">{{administrador.FechaIngresoTECres}}</td>
-            <td class="pt-3-half" contenteditable="true" (blur) = "actualizarLista(administrador.cedula , 'Nombre', $event)">{{administrador.Nombre}}</td>
-            <td class="pt-3-half" contenteditable="true" (blur) = "actualizarLista(administrador.cedula , 'Apellido1', $event)">{{administrador.Apellido1}}</td>
-            <td class="pt-3-half" contenteditable="true" (blur) = "actualizarLista(administrador.cedula , 'Apellido2', $event)">{{administrador.Apellido2}}</td>
-            <td class="pt-3-half" contenteditable="true" (blur) = "actualizarLista(administrador.cedula , 'Edad', $event)">{{administrador.Edad}}</td>
-            <td class="pt-3-half" contenteditable="true" (blur) = "actualizarLista(administrador.cedula , 'Cedula', $event)">{{administrador.Cedula}}</td>
+          <tr *ngFor = "let administrador of perfil_administradores;index as i" [attr.id] = "i"  [ngClass] = "{'highlight' : administrador.cedula == buscar('busqueda','i')}">
+            <td class="pt-3-half" contenteditable="true" (blur) = "actualizarLista(administrador.id_admin , 'ID', $event)">{{administrador.id_admin}}</td>
+            <td class="pt-3-half" contenteditable="true" (blur) = "actualizarLista(administrador.id_admin , 'FechaNacimiento', $event)">{{administrador.nacimiento}}</td>
+            <td class="pt-3-half" contenteditable="true" (blur) = "actualizarLista(administrador.id_admin , 'FechaIngresoTECres', $event)">{{administrador.ingreso}}</td>
+            <td class="pt-3-half" contenteditable="true" (blur) = "actualizarLista(administrador.id_admin , 'Nombre', $event)">{{administrador.nombre}}</td>
+            <td class="pt-3-half" contenteditable="true" (blur) = "actualizarLista(administrador.id_admin , 'Apellido1', $event)">{{administrador.apellido1}}</td>
+            <td class="pt-3-half" contenteditable="true" (blur) = "actualizarLista(administrador.id_admin , 'Apellido2', $event)">{{administrador.apellido2}}</td>
+            <td class="pt-3-half" contenteditable="true" (blur) = "actualizarLista(administrador.id_admin , 'edad', $event)">{{administrador.edad}}</td>
+            <td class="pt-3-half" contenteditable="true" (blur) = "actualizarLista(administrador.id_admin , 'Cedula', $event)">{{administrador.cedula}}</td>
             
               <td>
                 <span class="table-remove">
@@ -48,9 +49,9 @@
                     <button type="button" 
                             style="color:chocolate"
                             class="btn  btn-rounded btn-sm my-0 " 
-                            (click) = "eliminar(administrador.Cedula)">ELIMINAR</button>
+                            (click) = "eliminar(administrador.id_admin)">ELIMINAR</button>
                     
-                  
+                      <button type="button" style="color:chocolate" class="btn btn-rounded btn-sm my-0 " (click) = "agregar1(administrador.id_admin)">AGREGAR</button>
                 </span>
               </td>
           </tr>
